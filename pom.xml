@@ -21,8 +21,6 @@
         <developerConnection>scm:git:https://github.com/jeszy75/jdbi-examples.git</developerConnection>
     </scm>
     <properties>
-        <maven.compiler.source>13</maven.compiler.source>
-        <maven.compiler.target>13</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdbi.version>3.12.2</jdbi.version>
         <exec.cleanupDaemonThreads>false</exec.cleanupDaemonThreads>
@@ -69,6 +67,27 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M2</version>
+                <executions>
+                    <execution>
+                        <id>enforce-java</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>13</version>
+                                    <message>JDK 13 or later is required</message>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
@@ -84,4 +103,26 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>JDK13</id>
+            <activation>
+                <jdk>13</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>13</maven.compiler.source>
+                <maven.compiler.target>13</maven.compiler.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>JDK14-or-later</id>
+            <activation>
+                <jdk>[14,)</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>14</maven.compiler.source>
+                <maven.compiler.target>14</maven.compiler.target>
+            </properties>
+        </profile>
+    </profiles>
 </project>
