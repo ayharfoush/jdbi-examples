@@ -15,7 +15,7 @@ public class Main {
             dao.createTable();
             dao.insert();
             dao.insert();
-            System.out.println(dao.find());
+            System.out.println(dao.find()); //(isbn id)
             Book book = dao.find().get();
             dao.delete(book);
             dao.findAll().stream().map(book::getpublicationdate).sorted().forEach(System.out::println);
