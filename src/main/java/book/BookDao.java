@@ -42,4 +42,3 @@ public interface BookDao {
 
     @SqlQuery("SELECT * FROM book ORDER BY publicationDate")
     List<Book> findAll();
-}

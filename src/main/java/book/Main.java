@@ -13,6 +13,10 @@ public class Main {
         try (Handle handle = jdbi.open()) {
             BookDao dao = handle.attach(BookDao.class);
             dao.createTable();
+            dao.insert();
+            dao.insert();
+            System.out.println(dao.find());
+            Book book = dao.find().get();
             dao.delete(book);
             dao.findAll().stream().map(book::getpublicationdate).sorted().forEach(System.out::println);
     }
